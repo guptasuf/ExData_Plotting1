@@ -3,14 +3,21 @@
 #version 1
 #subhajit gupta, 8th feb 2015
 
-rm(list=ls())#clear working directory
-
 #set working directory
+#currently it is my own directory: /home/shibai/Courses/datascience~eda
+#first downloading the file from given url
+#then unzipping the file and reading it
 #reading dataset using data.table package 
 #using fread to read data faster
-setwd("/home/shibai/Courses/datascience~eda")
+rm(list=ls())#clear existing workspace
+wrkdir<-"/home/shibai/Courses/datascience~eda" #working directory
+setwd(wrkdir)
 require(data.table)
-hpc<-fread("household_power_consumption.txt")
+fileurl<-"http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+download.file(fileurl,destfile="hpc.zip")
+unzip("hpc.zip")#unzip file
+filename<-unzip("hpc.zip",list=T)$Name#extract data set name
+hpc<-fread(filename)
 
 #some basic data understanding using str,head, etc.
 str(hpc)
